@@ -1,6 +1,8 @@
+import css from "./Feedback.module.css";
+
 export default ({ feedbacks, variants, totalFeedback, totalPositive }) => {
   return (
-    <ul>
+    <ul className={css.list}>
       {variants.map(({ variant, text }) => (
         <li key={variant}>
           {text}: {feedbacks?.[variant] ?? 0}
