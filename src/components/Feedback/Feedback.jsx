@@ -1,6 +1,5 @@
-import Notification from "../Notification/Notification";
 export default ({ feedbacks, variants, totalFeedback, totalPositive }) => {
-  return totalFeedback ? (
+  return (
     <ul>
       {variants.map(({ variant, text }) => (
         <li key={variant}>
@@ -10,7 +9,5 @@ export default ({ feedbacks, variants, totalFeedback, totalPositive }) => {
       <li>Total: {totalFeedback}</li>
       <li>Positive: {totalPositive}%</li>
     </ul>
-  ) : (
-    <Notification text="No feedback yet" />
   );
 };

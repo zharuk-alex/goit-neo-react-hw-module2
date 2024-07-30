@@ -1,7 +1,7 @@
 import css from "./Option.module.css";
 import Button from "../Button/Button";
 
-export default ({ variants = [], handleClick, handleReset }) => {
+export default ({ variants = [], handleClick, handleReset, totalFeedback }) => {
   return (
     <div className={css.btnGroup}>
       {variants.map(({ text, variant }) => (
@@ -11,7 +11,7 @@ export default ({ variants = [], handleClick, handleReset }) => {
           onClick={() => handleClick(variant)}
         />
       ))}
-      <Button text="Reset" onClick={handleReset} />
+      {!!totalFeedback && <Button text="Reset" onClick={handleReset} />}
     </div>
   );
 };

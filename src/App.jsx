@@ -2,6 +2,7 @@ import "@/App.css";
 import Description from "./components/Description/Description";
 import Option from "./components/Option/Option";
 import Feedback from "./components/Feedback/Feedback";
+import Notification from "./components/Notification/Notification";
 
 import { useEffect, useState } from "react";
 
@@ -46,13 +47,14 @@ function App() {
     });
   };
 
-  const totalFeedback = () =>
-    Object.values(feedbacks).reduce((acc, item) => (acc += item), 0);
+  const totalFeedback = Object.values(feedbacks).reduce(
+    (acc, item) => acc + item,
+    0
+  );
 
-  const totalPositive = () =>
-    totalFeedback()
-      ? Math.round((feedbacks?.good / totalFeedback()) * 100)
-      : 100;
+  const totalPositive = totalFeedback
+    ? Math.round((feedbacks.good / totalFeedback) * 100)
+    : 100;
 
   return (
     <main>
@@ -60,15 +62,20 @@ function App() {
         <Description />
         <Option
           variants={feedbackVariants}
+          totalFeedback={totalFeedback}
           handleClick={feedbacksUpdate}
           handleReset={feedbacksReset}
         />
-        <Feedback
-          feedbacks={feedbacks}
-          variants={feedbackVariants}
-          totalFeedback={totalFeedback()}
-          totalPositive={totalPositive()}
-        />
+        {totalFeedback ? (
+          <Feedback
+            feedbacks={feedbacks}
+            variants={feedbackVariants}
+            totalFeedback={totalFeedback}
+            totalPositive={totalPositive}
+          />
+        ) : (
+          <Notification text="No feedback yet" />
+        )}
       </div>
     </main>
   );
